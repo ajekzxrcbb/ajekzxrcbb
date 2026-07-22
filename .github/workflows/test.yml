@@ -1,0 +1,25 @@
+name: Build and Test
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Go environment
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+
+    - name: Build and Test
+      run: go build -v && go test -v
+      env:
+        GOOS: linux
+        GOARCH: amd64
+
+    - name: Always succeed
+      run: echo 'Test successful'
